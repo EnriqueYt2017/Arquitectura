@@ -1,0 +1,37 @@
+{% extends 'layouts/base2.html' %}
+{% load static %}
+
+{% block content %}
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Registro</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">Crea una cuenta nueva</h3>
+                    <form method="POST" action="#">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Registrarse</button>  <!-- Elimina 'href' -->
+                        </div>
+                        <div class="form-group d-md-flex">
+                            <div class="w-50">
+                                <a class="checkbox-wrap" href="{% url 'login' %}" target="_blank" rel="noopener noreferrer">Iniciar Sesión</a>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="w-100 text-center">&mdash; O regístrate con &mdash;</p>
+                    <div class="social d-flex text-center">
+                        <a href="" class="g-signin2" data-onsuccess="onSignIn"><span class="ion-logo-google mr-2"></span> Google</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
