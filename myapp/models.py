@@ -16,41 +16,12 @@ class Adulto_Mayor(models.Model):
         return self.nombre + ' ' + self.apellido
 
 
-class Usuario(AbstractUser):
-    is_staff = models.BooleanField(default=False)
-    usuario_id = models.AutoField(primary_key=True)
-    nombre_usuario = models.CharField(max_length=50, unique=True, default='default_username')
-    password = models.CharField(max_length=128, null=False)  # Agrega null=False
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    telefono = models.CharField(max_length=20)
-    direccion = models.CharField(max_length=100)
-    email = models.EmailField()
-    fecha_registro = models.DateField()
-    foto_perfil = models.ImageField(upload_to='fotos_perfil/', default='default_profile_pic.jpg')
-
-    groups = models.ManyToManyField(
-        'auth.Group',
-        verbose_name='groups',
-        blank=True,
-        related_name='custom_user_set',  # Agrega related_name
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        verbose_name='user permissions',
-        blank=True,
-        related_name='custom_user_set',  # Agrega related_name
-    )
-
-    def __str__(self):
-        return self.nombre + ' ' + self.apellido
 
 
 class Instructor(models.Model):
     instructor_id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     especialidad = models.CharField(max_length=50)
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombre + ' ' + self.especialidad
@@ -75,7 +46,6 @@ class Reporte(models.Model):
     tipo_reporte = models.CharField(max_length=50)
     fecha_generacion = models.DateField()
     contenido = models.TextField()
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.fecha_generacion
@@ -121,7 +91,6 @@ class Registro_material(models.Model):
 
 class Administrador(models.Model):
     administrador_id = models.AutoField(primary_key=True)
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.administrador_id
@@ -132,13 +101,22 @@ class Inscripcion_taller(models.Model):
     estado = models.CharField(max_length=50)
     adulto_mayor_id = models.ForeignKey(Adulto_Mayor, on_delete=models.CASCADE)
     taller_id = models.ForeignKey(Taller, on_delete=models.CASCADE)
+    
 
     def __str__(self):
-        return self.inscripcion_id
+        return f"Inscripción de {self.adulto_mayor_id} al taller {self.taller_id}"
 
 class Funcionario_municipal(models.Model):
     funcionario_id = models.AutoField(primary_key=True)
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.funcionario_id
+
+class Comentario(models.Model):
+    comentario_id = models.AutoField(primary_key=True)
+    contenido = models.TextField()
+    nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.comentario_id
+    

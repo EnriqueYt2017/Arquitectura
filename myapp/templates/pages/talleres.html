@@ -82,7 +82,7 @@
     <form id="registrationForm">
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="name" required>
+            <input type="text" class="form-control" id="name" placeholder="{{ user.username }}" disabled>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Correo Electrónico</label>
@@ -90,15 +90,20 @@
         </div>
         <div class="mb-3">
             <label for="workshop" class="form-label">Taller</label>
-            <select class="form-select" id="workshop" required>
-                <option value="">Seleccione un taller</option>
-                <option value="taller1">Taller 1</option>
-                <option value="taller2">Taller 2</option>
-                <option value="taller3">Taller 3</option>
+            <select class="form-select" id="workshop" name="workshop" required>
+            <option value="">Seleccione un taller</option>
+            {% for taller in talleres %}
+            <option value="{{ taller.id }}">{{ talleres.nombre }}</option>
+            {% endfor %}
             </select>
         </div>
+        {% if user.is_authenticated %}
         <button type="submit" class="btn btn-primary">Inscribirse</button>
+        {% else %}
+        <button type="submit" class="btn btn-primary" disabled>Inscribirse</button>
+        {% endif %}
     </form>
+    
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">

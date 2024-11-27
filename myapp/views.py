@@ -9,6 +9,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import logout as auth_logout
+from django.contrib import messages
 
 # Create your views here.
 def hello(request, username):
@@ -21,6 +22,9 @@ def contacto(request):
     return render(request, 'pages/contacto.html')
 
 def talleres(request):
+
+    talleres = Taller.objects.all()
+    
     return render(request, 'pages/talleres.html')
 
 def servicios_apoyo(request):
@@ -72,5 +76,6 @@ def register(request):
     return render(request, 'register-login/register.html', {'form': form}) """
 
 def logout_view(request):
-    logout(request)
+    if request.method == 'POST':
+        logout(request)
     return redirect(to="home")

@@ -1,7 +1,7 @@
 from django.forms import ModelForm, DateInput, FileInput, PasswordInput
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login
-from .models import Usuario
+from .models import *
 from django.contrib.auth.models import User
 from django import forms
 
