@@ -29,6 +29,9 @@ def home(request):
 def contacto(request):
     return render(request, 'pages/contacto.html')
 
+def accesibilidad(request):
+    return render(request, 'pages/accesibilidad.html')
+
 def talleres(request):
 
     talleres = Taller.objects.all()

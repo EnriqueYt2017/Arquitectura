@@ -12,6 +12,7 @@ urlpatterns = [
     path('pages/contacto', views.contacto, name='contacto'),
     path('pages/talleres', views.talleres, name='talleres'),
     path('pages/servicios_apoyo', views.servicios_apoyo, name='servicios_apoyo'),
+    path('pages/accesibilidad', views.accesibilidad, name='accesibilidad'),
     path('register-login/login', views.login, name='login'),
     path('register-login/register', views.register, name='registrar'),
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),

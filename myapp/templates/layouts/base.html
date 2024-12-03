@@ -91,9 +91,105 @@
               <li class="nav-item">
                <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
                 </li>
-                 <li class="nav-item">
-                  <a class="nav-link disabled" href="" >Accesibilidad</a>
-          </li>
+        </ul>
+            </div>
+          </div>
+        </nav>
+        <button id="accessibility-btn" class="btn btn-primary" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+          Accesibilidad
+        </button>
+        <div id="accessibility-menu" class="card" style="position: fixed; bottom: 80px; right: 20px; z-index: 1000; display: none;">
+          <div class="card-body">
+            <h5 class="card-title">Opciones de Accesibilidad</h5>
+            <div class="mb-3">
+              <label for="font-size" class="form-label">Tamaño de la letra</label>
+              <input type="range" class="form-range" id="font-size" min="12" max="24">
+            </div>
+            <div class="mb-3">
+              <label for="background-color" class="form-label">Color del fondo</label>
+              <input type="color" class="form-control" id="background-color">
+            </div>
+            <div class="mb-3">
+              <label for="navbar-color" class="form-label">Color del navbar</label>
+              <input type="color" class="form-control" id="navbar-color">
+            </div>
+            <div class="mb-3">
+              <label for="text-color" class="form-label">Color de las letras</label>
+              <input type="color" class="form-control" id="text-color">
+            </div>
+            <div class="mb-3">
+              <label for="navbar-text-color" class="form-label">Color de las letras del navbar</label>
+              <input type="color" class="form-control" id="navbar-text-color">
+            </div>
+            <button id="reset-btn" class="btn btn-secondary">Restablecer</button>
+          </div>
+        </div>
+
+        <script>
+          document.getElementById('accessibility-btn').addEventListener('click', function() {
+            var menu = document.getElementById('accessibility-menu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+          });
+
+          document.getElementById('font-size').addEventListener('input', function() {
+            document.body.style.fontSize = this.value + 'px';
+            localStorage.setItem('fontSize', this.value);
+          });
+
+          document.getElementById('background-color').addEventListener('input', function() {
+            document.body.style.backgroundColor = this.value;
+            localStorage.setItem('backgroundColor', this.value);
+          });
+
+          document.getElementById('navbar-color').addEventListener('input', function() {
+            document.querySelector('.navbar').style.backgroundColor = this.value;
+            localStorage.setItem('navbarColor', this.value);
+          });
+
+          document.getElementById('text-color').addEventListener('input', function() {
+            document.body.style.color = this.value;
+            localStorage.setItem('textColor', this.value);
+          });
+
+          document.getElementById('navbar-text-color').addEventListener('input', function() {
+            var navbarLinks = document.querySelectorAll('.navbar a');
+            navbarLinks.forEach(function(link) {
+              link.style.color = this.value;
+            }, this);
+            localStorage.setItem('navbarTextColor', this.value);
+          });
+
+          document.getElementById('reset-btn').addEventListener('click', function() {
+            localStorage.clear();
+            location.reload();
+          });
+
+          window.addEventListener('load', function() {
+            if (localStorage.getItem('fontSize')) {
+              document.body.style.fontSize = localStorage.getItem('fontSize') + 'px';
+              document.getElementById('font-size').value = localStorage.getItem('fontSize');
+            }
+            if (localStorage.getItem('backgroundColor')) {
+              document.body.style.backgroundColor = localStorage.getItem('backgroundColor');
+              document.getElementById('background-color').value = localStorage.getItem('backgroundColor');
+            }
+            if (localStorage.getItem('navbarColor')) {
+              document.querySelector('.navbar').style.backgroundColor = localStorage.getItem('navbarColor');
+              document.getElementById('navbar-color').value = localStorage.getItem('navbarColor');
+            }
+            if (localStorage.getItem('textColor')) {
+              document.body.style.color = localStorage.getItem('textColor');
+              document.getElementById('text-color').value = localStorage.getItem('textColor');
+            }
+            if (localStorage.getItem('navbarTextColor')) {
+              var navbarLinks = document.querySelectorAll('.navbar a');
+              navbarLinks.forEach(function(link) {
+                link.style.color = localStorage.getItem('navbarTextColor');
+              });
+              document.getElementById('navbar-text-color').value = localStorage.getItem('navbarTextColor');
+            }
+          });
+        </script>
         </ul>
       </div>
     </div>

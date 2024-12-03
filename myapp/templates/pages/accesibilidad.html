@@ -1,0 +1,80 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% load static %}
+<div class="accessibility-options">
+    <label for="navbar-color">Color del Navbar:</label>
+    <input type="color" id="navbar-color" name="navbar-color" onchange="changeNavbarColor(this.value)">
+    
+    <label for="font-size">Tamaño de la letra:</label>
+    <input type="range" id="font-size" name="font-size" min="10" max="30" value="16" onchange="changeFontSize(this.value)">
+</div>
+
+<div class="accessibility-options">
+    <label for="font-color">Color de la letra:</label>
+    <input type="color" id="font-color" name="font-color" onchange="changeFontColor(this.value)">
+</div>
+
+<div class="accessibility-options">
+    <label for="navbar-font-color">Color de la letra del Navbar:</label>
+    <input type="color" id="navbar-font-color" name="navbar-font-color" onchange="changeNavbarFontColor(this.value)">
+</div>
+
+<button onclick="resetSettings()">Restablecer valores</button>
+
+<script>
+    function changeNavbarColor(color) {
+        document.querySelector('.navbar').style.backgroundColor = color;
+    }
+
+    function changeFontSize(size) {
+        document.body.style.fontSize = size + 'px';
+    }
+
+    function changeFontColor(color) {
+        document.body.style.color = color;
+    }
+
+    function changeNavbarFontColor(color) {
+        document.querySelector('.navbar').style.color = color;
+    }
+
+    function saveSettings() {
+        const settings = {
+            navbarColor: document.querySelector('#navbar-color').value,
+            fontSize: document.querySelector('#font-size').value,
+            fontColor: document.querySelector('#font-color').value,
+            navbarFontColor: document.querySelector('#navbar-font-color').value
+        };
+        localStorage.setItem('accessibilitySettings', JSON.stringify(settings));
+    }
+
+    function loadSettings() {
+        const settings = JSON.parse(localStorage.getItem('accessibilitySettings'));
+        if (settings) {
+            document.querySelector('#navbar-color').value = settings.navbarColor;
+            document.querySelector('#font-size').value = settings.fontSize;
+            document.querySelector('#font-color').value = settings.fontColor;
+            document.querySelector('#navbar-font-color').value = settings.navbarFontColor;
+
+            changeNavbarColor(settings.navbarColor);
+            changeFontSize(settings.fontSize);
+            changeFontColor(settings.fontColor);
+            changeNavbarFontColor(settings.navbarFontColor);
+        }
+    }
+
+    function resetSettings() {
+        localStorage.removeItem('accessibilitySettings');
+        location.reload();
+    }
+
+    document.querySelector('#navbar-color').addEventListener('change', saveSettings);
+    document.querySelector('#font-size').addEventListener('change', saveSettings);
+    document.querySelector('#font-color').addEventListener('change', saveSettings);
+    document.querySelector('#navbar-font-color').addEventListener('change', saveSettings);
+
+    window.onload = loadSettings;
+</script>
+
+
+{% endblock %}
