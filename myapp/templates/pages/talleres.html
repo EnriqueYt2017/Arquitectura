@@ -1,8 +1,8 @@
 {% extends 'layouts/base.html' %}
 {% block content %}
 {% load static %}
- <!-- INICIO CALENDARIO -->
-  <div class="container mt-5">
+<!-- INICIO CALENDARIO -->
+<div class="container mt-5">
     <h1 class="mb-4">Calendario de Eventos</h1>
     <div id="calendar"></div>
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -26,11 +26,13 @@
         </tbody>
     </table>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const currentMonthEl = document.getElementById('currentMonth');
             const calendarBody = document.getElementById('calendarBody');
             const prevMonthBtn = document.getElementById('prevMonth');
             const nextMonthBtn = document.getElementById('nextMonth');
+
+
             let currentDate = new Date();
 
             function renderCalendar(date) {
@@ -61,23 +63,71 @@
                 calendarBody.appendChild(row);
             }
 
-            prevMonthBtn.addEventListener('click', function() {
+            prevMonthBtn.addEventListener('click', function () {
                 currentDate.setMonth(currentDate.getMonth() - 1);
                 renderCalendar(currentDate);
             });
 
-            nextMonthBtn.addEventListener('click', function() {
+            nextMonthBtn.addEventListener('click', function () {
                 currentDate.setMonth(currentDate.getMonth() + 1);
                 renderCalendar(currentDate);
             });
 
+            
             renderCalendar(currentDate);
         });
-    </script>
+        const talleres = JSON.parse('{{ talleres_json|escapejs }}');
+
+        function markWorkshopDays() {
+            talleres.forEach(taller => {
+                const startDate = new Date(taller.fecha_inicio);
+                const endDate = new Date(taller.fecha_fin);
+
+                for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
+                    if (date.getDay() === 2 || date.getDay() === 4) { // 2: Tuesday, 4: Thursday
+                        const dayCell = calendarBody.querySelector(`td:contains(${date.getDate()})`);
+                        if (dayCell) {
+                            dayCell.style.backgroundColor = '#FFD700'; // Highlight color
+                        }
+                    }
+                }
+            });
+        }
+
+        renderCalendar(currentDate);
+        markWorkshopDays();
+        </script>
 </div>
-    <!-- FIN CALENDARIO -->
-    <div class="mt-4 p-1 bg-dark text-white rounded"></div>
-    <div class="container mt-5">
+<!-- FIN CALENDARIO -->
+<div class="container mt-5">
+    <h1 class="mb-4">Horarios Talleres</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Taller</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Termino</th>
+                <th>Dias</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for taller in talleres %}
+            <tr>
+                <td>{{ taller.nombre }}</td>
+                <td>{{ taller.fecha_inicio|date:"d/m/Y" }}</td>
+                <td>{{ taller.fecha_fin|date:"d/m/Y" }}</td>
+                <td>Martes - Sabados</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+
+
+<div class="mt-4 p-1 bg-dark text-white rounded"></div>
+<div class="container mt-5">
     <h2 class="mt-5">Inscripción en Talleres</h2>
     <form id="registrationForm">
         <div class="mb-3">
@@ -91,10 +141,10 @@
         <div class="mb-3">
             <label for="workshop" class="form-label">Taller</label>
             <select class="form-select" id="workshop" name="workshop" required>
-            <option value="">Seleccione un taller</option>
-            {% for taller in talleres %}
-            <option value="{{ taller.id }}">{{ talleres.nombre }}</option>
-            {% endfor %}
+                <option value="">Seleccione un taller</option>
+                {% for taller in talleres %}
+                <option option value="{{ taller.id }}">{{ taller.nombre }}</option>
+                {% endfor %}
             </select>
         </div>
         {% if user.is_authenticated %}
@@ -103,7 +153,7 @@
         <button type="submit" class="btn btn-primary" disabled>Inscribirse</button>
         {% endif %}
     </form>
-    
+
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">

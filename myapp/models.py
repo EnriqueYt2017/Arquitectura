@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class Adulto_Mayor(models.Model):
@@ -63,6 +65,10 @@ class Taller(models.Model):
     descripcion = models.TextField()
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
+    hora_inicio = models.TimeField(default=datetime.time(8, 0, 0), null=False)
+    hora_fin = models.TimeField(default=datetime.time(23, 59, 59), null=False)
+    dias = models.CharField(max_length=50, null=False, default=timezone.now)
+
     cupo_maximo = models.IntegerField()
     instructor_id = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     clasificacion_taller_id = models.ForeignKey(Clasificacion_taller, on_delete=models.CASCADE)

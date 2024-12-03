@@ -24,8 +24,11 @@ def contacto(request):
 def talleres(request):
 
     talleres = Taller.objects.all()
+    context = {
+        'talleres': talleres
+    }
     
-    return render(request, 'pages/talleres.html')
+    return render(request, 'pages/talleres.html',context)
 
 def servicios_apoyo(request):
     return render(request, 'pages/servicios_apoyo.html')
