@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inscripción a Talleres</title>
+    <!-- Incluye aquí los archivos CSS necesarios -->
+</head>
+<body>
+    <h1>Inscripción a Talleres</h1>
+
+    <form id="registrationForm" method="POST" action="{% url 'registrar_taller' %}">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="workshop" class="form-label">Taller</label>
+            <select class="form-select" id="workshop" name="workshop" required>
+                <option value="">Seleccione un taller</option>
+                {% for taller in talleres %}
+                    <option value="{{ taller.id }}">{{ taller.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <script>
+            document.getElementById('registrationForm').addEventListener('submit', function(event) {
+                var tallerSelect = document.getElementById('workshop');
+                if (tallerSelect.value === "") {
+                    event.preventDefault(); // Detener el envío del formulario
+                    alert("Debes seleccionar un taller.");
+                }
+            });
+        </script>
+
+        {% if user.is_authenticated %}
+            <button type="submit" class="btn btn-primary">Inscribirse</button>
+        {% else %}
+            <button type="submit" class="btn btn-primary" disabled>Inscribirse</button>
+        {% endif %}
+    </form>
+
+    <!-- Incluye aquí los archivos JavaScript necesarios -->
+</body>
+</html>

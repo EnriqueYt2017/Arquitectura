@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Adulto_Mayor(models.Model):
@@ -67,12 +68,20 @@ class Taller(models.Model):
     fecha_fin = models.DateField()
     hora_inicio = models.TimeField(default=datetime.time(8, 0, 0), null=False)
     hora_fin = models.TimeField(default=datetime.time(23, 59, 59), null=False)
-    dias = models.CharField(max_length=50, null=False, default=timezone.now)
-
+    DIAS_CHOICES = [
+        ('Lunes', 'Lunes'),
+        ('Martes', 'Martes'),
+        ('Miércoles', 'Miércoles'),
+        ('Jueves', 'Jueves'),
+        ('Viernes', 'Viernes'),
+    ]
+    dias = models.ManyToManyField('Dia', choices=DIAS_CHOICES)
+    dias = models.CharField(max_length=50, choices=DIAS_CHOICES)
     cupo_maximo = models.IntegerField()
     instructor_id = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     clasificacion_taller_id = models.ForeignKey(Clasificacion_taller, on_delete=models.CASCADE)
     sala_id = models.ForeignKey(Sala, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.nombre
@@ -101,16 +110,20 @@ class Administrador(models.Model):
     def __str__(self):
         return self.administrador_id
 
+
 class Inscripcion_taller(models.Model):
     inscripcion_id = models.AutoField(primary_key=True)
-    fecha_inscripcion = models.DateField()
-    estado = models.CharField(max_length=50)
-    adulto_mayor_id = models.ForeignKey(Adulto_Mayor, on_delete=models.CASCADE)
+    fecha_inscripcion = models.DateTimeField(auto_now_add=True)  # Registra fecha y hora
+    estado = models.CharField(max_length=50, choices=[
+        ('pendiente', 'Pendiente'),
+        ('confirmado', 'Confirmado'),
+        ('cancelado', 'Cancelado'),
+    ])
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     taller_id = models.ForeignKey(Taller, on_delete=models.CASCADE)
-    
 
     def __str__(self):
-        return f"Inscripción de {self.adulto_mayor_id} al taller {self.taller_id}"
+        return f"Inscripción de {self.usuario.username} al taller {self.taller_id}"
 
 class Funcionario_municipal(models.Model):
     funcionario_id = models.AutoField(primary_key=True)

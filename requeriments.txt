@@ -1,2 +1,6 @@
 django
 pillow
+google-api-python-client google-auth-httplib2 google-auth-oauthlib
+
+
+#Clave api AIzaSyCs5Jo8f5_Do862Y5vuyCcRKrYvuKx-Pxw
