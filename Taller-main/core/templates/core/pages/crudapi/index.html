@@ -1,0 +1,107 @@
+{% load static %}
+{% block content %}
+<div class="cube">
+    <div class="msg_list_main">
+        <ul class="msg_list">
+            {% for aux in page_obj %}
+            <li>
+                {% if aux.img %}
+                <span><img src="{{ aux.img }}" class="img-responsive" alt="#"></span>
+                {% else %}
+                <span><img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqJ64OjHJ2GXpTZqsuJAVI3Epg3WqQUZFE9eGt-Tj4sw&s"
+                        class="img-responsive" alt="#"></span>
+                {% endif %}
+                <span>
+                    <span class="name_user">{{ aux.name }}</span>
+                    <span class="msg_user">{{ aux.level }}</span>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="read_more">
+    <div style="margin-bottom: 25px; margin-top: 25px;">
+        {% include 'core/includes/paginator.html' %}
+    </div>
+</div>
+
+
+{% endblock %}
+<style>
+    .msg_list_main {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .msg_list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .msg_list li {
+        display: flex;
+        padding: 10px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .msg_list li span {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .msg_list li span img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .msg_list li span span {
+        margin-left: 10px;
+    }
+
+    .msg_list li span span.name_user {
+        font-weight: bold;
+    }
+
+    .msg_list li span span.msg_user {
+        color: #999;
+    }
+
+    .msg_list li span span.time_ago {
+        color: #999;
+    }
+
+    .read_more {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .pagination {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .pagination li {
+        display: inline-block;
+        margin: 0 5px;
+    }
+
+    .pagination li a {
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+        border: 1px solid #f1f1f1;
+        border-radius: 5px;
+    }
+
+    .pagination li.active a {
+        background: #333;
+        color: #fff;
+    }
+</style>

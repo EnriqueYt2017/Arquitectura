@@ -1,0 +1,16 @@
+.select {
+    color: #212529 !important;
+}
+
+.selectmultiple {
+    height: 200px;
+    color: #212529 !important;
+}
+
+.selectmultiple option {
+    color: #212529 !important;
+}
+
+.g-recaptcha {
+    height: 100px;
+}

@@ -1,0 +1,54 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block contenido %}
+<div class="container py-5" style="min-height: 100; display: flex; flex-direction: column; gap: 20px; width: 800px;;">
+    <h1 class="py-2" style="text-align: center;">Historial de compras</h1>
+    {% include 'core/includes/paginator.html' %}
+    {% for historial in page_obj %}
+    <div class="card text-center" style="background-color: #f8f9fa; border-radius: 10px;">
+        <div class="card-header" style="background-color: #e9ecef;">
+            Boleta #{{historial.id}}
+        </div>
+        <div class="card-body">
+            <p class="card-text">Total: {{historial.total}}</p>
+            <p class="card-text">Total (USD): {{historial.total_usd}}</p>
+            <a href="{% url 'compra' historial.id %}" class="btn btn-primary">Ver Boleta</a>
+        </div>
+        <div class="card-footer text-muted">
+            {{historial.fecha}}
+        </div>
+    </div>
+    {% endfor %}
+    {% include 'core/includes/paginator.html' %}
+</div>
+<style>
+    body {
+        /* fallback for old browsers */
+        background: #cb1111;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgb(0, 0, 0), rgb(0, 0, 0));
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgb(203, 17, 17), rgb(252, 170, 37));
+    }
+
+    .container {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        border-radius: 20px;
+        background: rgb(207, 20, 20);
+        color: white;
+    }
+
+    button:hover {
+        background: rgb(90, 16, 16);
+    }
+</style>
+{% endblock %}

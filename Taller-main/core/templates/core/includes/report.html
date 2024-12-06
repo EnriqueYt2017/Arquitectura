@@ -1,0 +1,50 @@
+<div style="text-align: center;">
+    <img src="https://th.bing.com/th?id=OIP.jxLR1uf-6y6TfnSU_1OajAHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" alt=""
+        width="200px">
+</div>
+<h2 style="text-align: center;">Inscripcion de taller</h2>
+<h6 style="text-align: center;">Taller Adulto Mayor</h6>
+<label style="text-align: start;">Usuario: {{user.nombre}}</label>
+<hr class="my-4" />
+<h2>Nombre Taller: {{taller.nombre}}</h2>
+<table class="w-100">
+    <tr style="background-color: rgb(154, 235, 235); border: 0.4px black solid;">
+        <th class="id">Nombre</th>
+        <th class="id">Cantidad</th>
+        <th class="id">Precio</th>
+        <th class="id">Total</th>
+    </tr>
+    {% for producto in productos %}
+    <tr>
+        <td class="id">{{producto.Producto.nombre}}</td>
+        <td class="id">{{producto.cantidad}}</td>
+        <td class="id">${% widthratio producto.acumulado producto.cantidad 1 %}</td>
+        <td class="id">${{producto.acumulado}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<hr class="my-4" />
+
+<h2>Detalles de Pago</h2>
+<table style="text-align: start;">
+    <tr>
+        <th style="text-align: start;">Forma de pago:</th>
+        <td style="text-align: start;">PayPal</td>
+    </tr>
+    <tr>
+        <th style="text-align: start;">Monto pagado:</th>
+        <td style="text-align: start;">${{venta.total}}</td>
+    </tr>
+    <tr>
+        <th style="text-align: start;">Total (USD):</th>
+        <td style="text-align: start;">${{venta.total_usd}}</td>
+    </tr>
+</table>
+
+
+<style>
+    .id {
+        padding: 5px;
+        border: 1px solid black;
+    }
+</style>

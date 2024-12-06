@@ -1,0 +1,14 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block contenido %}
+
+  <h1>Inscribirse al Taller: {{ taller.nombre }}</h1>
+
+  <p>Descripción: {{ taller.descripcion }}</p>
+
+  <form method="POST" action="{% url 'inscribir_taller' taller.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Inscribirme</button>
+  </form>
+
+{% endblock %}

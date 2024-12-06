@@ -1,0 +1,78 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block title %} - Usuarios{% endblock %}
+{% block contenido %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-sm-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 class="card-title">Usuarios</h4>
+                        <p class="card-description">
+                            Lista de usuarios.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="{% url 'dashboard-agregar-usuario'%}" class="btn btn-primary text-white mb-0 me-0">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Añadir usuario
+                        </a>
+                    </div>
+                </div>
+                {% include 'dashboard/partials/_paginator.html' %}
+                <div class="table-responsive text-center">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Foto de Perfil
+                                </th>
+                                <th>
+                                    Usuario
+                                </th>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Grupo
+                                </th>
+                                <th>
+                                    Correo
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in page_obj %}
+                            <tr>
+                                <td class="py-1">
+                                    <img src="{% static 'core/img/user.jpg' %}" alt="image" />
+                                </td>
+                                <td>
+                                    {{ usuario.username }}
+                                </td>
+                                <td>
+                                    {% if usuario.get_full_name %}{{ usuario.get_full_name }}{% else %}-{% endif %}
+                                </td>
+                                <td>
+                                    {{ usuario.groups.all.0 }}
+                                </td>
+                                <td>
+                                    {{ usuario.email }}
+                                </td>
+                                <td>
+                                    <!-- <a href="" class="btn btn-primary btn-xs"><i class="fa-solid fa-eye"></i></a> -->
+                                    <a href="{% url 'editar-usuario' usuario.id %}" class="btn btn-primary btn-xs"><i class="fa-solid fa-pencil"></i></a>
+                                    <button onclick="eliminarUsuario({{ usuario.id }})" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'dashboard/partials/_paginator.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

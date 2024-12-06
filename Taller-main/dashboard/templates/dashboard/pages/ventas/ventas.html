@@ -1,0 +1,78 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block title %} - Ventas{% endblock %}
+{% block contenido %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-sm-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 class="card-title">Ventas</h4>
+                        <p class="card-description">
+                            Lista de Ventas.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="{% url 'dashboard-agregar-venta' %}" class="btn btn-primary text-white mb-0 me-0">
+                            <i class="fa-solid fa-square-plus"></i>
+                            Añadir venta.
+                        </a>
+                    </div>
+                </div>
+                {% include 'dashboard/partials/_paginator.html' %}
+                <div class="table-responsive text-center">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Total
+                                </th>
+                                <th>
+                                    Total (USD)
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Usuario
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for venta in page_obj %}
+                            <tr>
+                                <td class="py-1">
+                                    {{ venta.id }}
+                                </td>
+                                <td>
+                                    ${{ venta.total }}
+                                </td>
+                                <td>
+                                    ${{ venta.total_usd }}
+                                </td>
+                                <td>
+                                    {{ venta.fecha }}
+                                </td>
+                                <td>
+                                    {{ venta.usuario }}
+                                </td>
+                                <td>
+                                    <!-- <a href="" class="btn btn-primary btn-xs"><i class="fa-solid fa-eye"></i></a> -->
+                                    <a href="{% url 'editar-venta' venta.id %}" class="btn btn-primary btn-xs"><i class="fa-solid fa-pencil"></i></a>
+                                    <button onclick="eliminarVenta({{ venta.id }})" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'dashboard/partials/_paginator.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

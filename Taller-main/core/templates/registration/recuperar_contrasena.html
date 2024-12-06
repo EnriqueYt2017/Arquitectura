@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Contraseña</title>
+  <link rel="stylesheet" href="{% static 'core/css/Recuperar.css' %}" type="text/css">
+</head>
+<body>
+  <div class="login-box">
+    <h2>Recuperar Contraseña</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="user-box">
+        <input type="email" name="email" autocomplete="email" maxlength="254" required="" id="id_email" data-temp-mail-org="0">
+        <label>Ingresa Email</label>
+      </div>
+      <button type="submit" id="enviar">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Enviar
+      </button>
+      <div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with" data-layout="rounded"
+        data-auto-logout-link="false" data-use-continue-as="false"></div>
+    </form>
+    <div class="enlaces text-center" style="display: grid;">
+      <a href="{% url 'login' %}"
+        style="color: white; text-align: center; text-decoration: none; transition: 200ms;">¿Tengo Cuenta? Inicia
+        Sesión</a>
+      <a href="{% url 'register' %}"
+        style="color: white; text-align: center; text-decoration: none; transition: 200ms;">¿No tienes cuenta?
+        Regístrate</a>
+    </div>
+  </div>
+</body>
+</html>

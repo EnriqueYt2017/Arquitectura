@@ -1,0 +1,126 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block contenido %}
+<div class="row">
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Ventas del {{anio}}</h4>
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Estadísticas Generales</h4>
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        /* ChartJS
+         * -------
+         * Data and config for chartjs
+         */
+        'use strict';
+        var data = {
+            labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            datasets: [{
+                label: 'ventas',
+                data: {{ventas_mes|safe}},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1,
+                fill: false
+            }]
+        };
+
+        var data2 = {
+            labels: [
+                'Usuarios',
+                'Productos',
+                'Vehículos',
+                'Ventas'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: {{stats|safe}},
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        var options = {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+
+        };
+        // Get context with jQuery - using jQuery's .get() method.
+        if ($("#barChart").length) {
+            var barChartCanvas = $("#barChart").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: data,
+                options: options
+            });
+        }
+
+        if ($("#pieChart").length) {
+            var barChartCanvas = $("#pieChart").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+            var barChart = new Chart(barChartCanvas, {
+                type: 'pie',
+                data: data2
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+{% endblock %}
+{% block contenido %}
+<!--INICIO BANNER-->
+<section class="hero spad set-bg" data-setbg="https://media.istockphoto.com/id/1756924683/photo/autumn-sunset-view-with-fall-colors-on-the-leaves-along-the-tree-lined-centennial-trail-path.webp?b=1&s=170667a&w=0&k=20&c=_OYHgmZrGPD7oXLs8ADLWt0044sQyg7yjnqqbHDhEJ0=">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="hero__text">
+          <div class="hero__text__title">
+            <span>Bienvenido</span>
+            <h2>Talleres Adulto Mayor</h2>
+          </div>
+          <div class="hero__text__price">
+            <div class="car-model">Talleres Disponibles</div>
+          </div>
+
+          <a href="{% url 'vehiculos' %}" class="primary-btn more-btn">Listado de Talleres</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--FIN BANNER-->
+
+<!--DESCRIPCIÓN TALLER-->
+<div class="p-5 bg-dark text-white text-center">
+  <h1>Talleres Recientes</h1>
+</div>
+<!--FIN DESCRIPCIÓN TALLER-->
+
+<!--INICIO CAROUSEL-->
+<div id="demo" class="carousel slide" data-bs-ride="carousel">
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    {% for aux in lista %}
+    <button type="button" data-bs-target="#demo" data-bs-slide-to="{{ forloop.counter0 }}" 
+    {% if forloop.first %} class="active" {% endif %}></button>
+    {% endfor %}
+  </div>
+
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    {% for aux in lista %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="https://media.istockphoto.com/id/1214226041/es/foto/fuerte-es-su-configuraci%C3%B3n-predeterminada.jpg?s=170667a&w=0&k=20&c=DeWX_p8uoIeG90PLYgiTLywCJO8jSbnXwstgxzgc8mc=" alt="" class="d-block mx-auto">
+      <div class="carousel-caption">
+        <h3>{{ aux.nombre }}</h3>
+        <a href="{% url 'vehiculos' %}">
+          <button type="button" class="btn">Más Información</button>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <style>
+    .carousel-item h3 {
+      color: white;
+    }
+  </style>
+
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+<!--FIN CAROUSEL-->
+
+
+<!--INICIO SERVICIOS-->
+<div class="container">
+  <section id="Chapters">
+    <h2 class="mt-5 text-center">Especialistas</h2>
+    <div class="row my-5 text-center">
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <img class="img-50" src="https://www.iesrp.edu.pe/wp-content/uploads/2020/09/profesionales-salud.png" alt="" width="300px" height="300px">
+        <h4> Profesional de la salud</h4>
+        <p> Un médico, enfermero o fisioterapeuta puede brindar orientación sobre la salud física y mental de los adultos mayores, asegurando que las actividades sean seguras y adaptadas a sus necesidades.</p>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <img class="img-50" src="https://marcbolufer.com/wp-content/uploads/2022/10/desarrollo-personal-1024x1024.png" alt="" width="300px" height="300px">
+        <h4>Especialista en el desarrollo personal</h4>
+        <p>Esta persona puede diseñar actividades que estimulen el aprendizaje, la creatividad y la participación social. Pueden ofrecer talleres de arte, música, idiomas, tecnología, o incluso temas de interés actual.</p>
+      </div>
+      <div class="col-sm-12 col-md-4 col-lg-4">
+        <img class="img-50" src="https://lamenteesmaravillosa.com/wp-content/uploads/2016/02/consulta-de-psicologia.jpg" alt="" width="300px" height="300px">
+        <h4>Psicólogo</h4>
+        <p>Este profesional puede brindar apoyo emocional, social y psicológico a los participantes, creando un ambiente de confianza y respeto. Pueden ayudar a resolver conflictos, fomentar la comunicación y promover el bienestar emocional.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!--FIN SERVICIOS-->
+
+<!--SEPARACIÓN-->
+<div class="p-1 bg-dark text-white text-center">
+</div>
+<!--SEPARACIÓN-->
+<!-- Chooseus Section Begin -->
+<section class="chooseus spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="chooseus__text">
+          <div class="section-title">
+            <h2>PORQUE ELEGIR UN TALLER?</h2>
+            <p>Cada uno de nuestros instructores estan altamente calificados para fortalecer una vida mas sana y entretenida, en nuestro lugar no tendras momentos malos, solo momentos de aprendizaje y diversion.</p>
+          </div>
+          <ul>
+            <li>Contamos con 2 cosas importantes :
+            </li>
+            <li><i class="fa fa-check-circle"></i> Seguro ante Accidentes y prevencion de riesgos.
+            </li>
+            <li><i class="fa fa-check-circle"></i> Medicos especializados en el cuidado de la salud.
+          </ul>
+          <a href="#" class="primary-btn">Mas Información</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chooseus__video">
+    <img src="https://www.aecrosario.org.ar/wp-content/uploads/2021/10/Talleres-adultos-mayores2021-e1634664186957.jpg" alt="">
+    <a href="https://www.youtube.com/watch?v=ap_NBuVwG2A" class="play-btn video-popup"><i
+        class="fa fa-play"></i></a>
+  </div>
+</section>
+<!-- Chooseus Section End -->
+
+{% endblock %}

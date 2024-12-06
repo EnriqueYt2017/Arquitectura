@@ -1,0 +1,47 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block contenido %}
+<!-- Call Section Begin -->
+<section class="call spad set-bg" data-setbg="{% static 'core/img/about/call-bg.jpg' %}" style="height: calc(100vh - 155px);">
+    <div class="container my-auto">
+        <div class="row">
+            <div class="col-lg-5 col-md-6">
+                <div class="call__text">
+                    <div class="section-title">
+                        <h2>Solicite una Hora</h2>
+                        <p>Para asegurar un espacio en el taller mecánico, es fundamental solicitar una hora con anticipación. 
+                            Esto permite planificar el servicio y garantizar que el personal esté disponible para atender tu vehículo</p>
+                    </div>
+                    <a href="#">No dude en llamarnos</a>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1 col-md-6">
+                <form action="{% url 'index' %}" class="call__form">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Nombre">
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Correo Electrónico">
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="text" placeholder="Teléfono">
+                        </div>
+                        <div class="col-lg-6">
+                            <select>
+                                <option value="">Selecciona Servicio</option>
+                                <option value="">...........</option>
+                                <option value="">.........</option>
+                                <option value="">...........</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="site-btn env">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call Section End -->
+{% endblock %}

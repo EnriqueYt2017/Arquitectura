@@ -1,0 +1,84 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block title %} - Vehículos{% endblock %}
+{% block contenido %}
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-sm-flex justify-content-between align-items-start">
+                    <div>
+                        <h4 class="card-title">Vehículos</h4>
+                        <p class="card-description">
+                            Lista de vehículos.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="{% url 'dashboard-agregar-vehiculo' %}" class="btn btn-primary text-white mb-0 me-0">
+                            <i class="fa-solid fa-square-plus"></i>
+                            Añadir vehículo.
+                        </a>
+                    </div>
+                </div>
+                {% include 'dashboard/partials/_paginator.html' %}
+                <div class="table-responsive text-center">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Imagen
+                                </th>
+                                <th>
+                                    Modelo
+                                </th>
+                                <th>
+                                    Propietario
+                                </th>
+                                <th>
+                                    Marca
+                                </th>
+                                <th>
+                                    Capacidad
+                                </th>
+                                <th>
+                                    Velocidad
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vehiculo in page_obj %}
+                            <tr>
+                                <td class="py-1">
+                                    <img src="{% if vehiculo.image %}{{ vehiculo.image.url }}{% else %}{% static 'no-img.jpg' %}{% endif %}" alt="image" />
+                                </td>
+                                <td>
+                                    {{ vehiculo.modelo }}
+                                </td>
+                                <td>
+                                    {{ vehiculo.propietario }}
+                                </td>
+                                <td>
+                                    {{ vehiculo.marca }}
+                                </td>
+                                <td>
+                                    {{ vehiculo.capacidad }}
+                                </td>
+                                <td>
+                                    {{ vehiculo.velo_maxima }} km/h
+                                </td>
+                                <td>
+                                    <!-- <a href="" class="btn btn-primary btn-xs"><i class="fa-solid fa-eye"></i></a> -->
+                                    <a href="{% url 'editar-vehiculo' vehiculo.id %}" class="btn btn-primary btn-xs"><i class="fa-solid fa-pencil"></i></a>
+                                    <button onclick="eliminarVehiculo({{ vehiculo.id }})" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'dashboard/partials/_paginator.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

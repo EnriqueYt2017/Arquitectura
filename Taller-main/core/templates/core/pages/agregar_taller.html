@@ -1,0 +1,14 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block contenido %}
+  <h1 style="text-align: center;">Agregar Taller</h1>
+<form method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+    {% csrf_token %}
+    <div style="margin-bottom: 15px;">
+            {{ form.as_p }}
+    </div>
+    <div style="text-align: center;">
+            <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">Guardar Taller</button>
+    </div>
+</form>
+{% endblock %}

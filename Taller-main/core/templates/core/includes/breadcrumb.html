@@ -1,0 +1,24 @@
+{% load static %}
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="{% static 'core/img/breadcrumb-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>{{ breadcrumb.title }}</h2>
+                    <div class="breadcrumb__links">
+                        <a href="{% url 'home' %}"><i class="fa fa-home"></i> Inicio</a>
+                        {% for item in breadcrumb.links %}
+                            {% if forloop.last %}
+                                <span>{{item}}</span>
+                            {% else %}
+                                <a href="#">{{item}}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Begin -->
