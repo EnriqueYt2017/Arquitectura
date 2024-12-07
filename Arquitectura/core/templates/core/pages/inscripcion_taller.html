@@ -1,0 +1,24 @@
+{% extends 'core/layout/base.html' %}
+{% load static %}
+{% block contenido %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h1 class="h3">Inscribirse al Taller</h1>
+        </div>
+        <div class="card-body">
+          <p>Complete el siguiente formulario para inscribirse al taller.</p>
+          <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block">Inscribirme</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
